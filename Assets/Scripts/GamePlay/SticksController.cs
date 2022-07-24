@@ -11,10 +11,9 @@ public class SticksController : MonoBehaviour
     private Vector3 previousPos;
     private Vector3 newPos;
 
-    private void Start()
-    {
-        GameManager.Instance.HeightChanged += HeightChanged;
-    }
+    private void Start() => EventHandler.HeightChanged += HeightChanged;
+
+    private void OnDestroy() => EventHandler.HeightChanged -= HeightChanged;
 
 
     private void Update()

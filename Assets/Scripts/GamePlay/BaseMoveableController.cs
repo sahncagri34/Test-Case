@@ -10,16 +10,16 @@ public class BaseMoveableController : MonoBehaviour
     protected bool isMoveActive;
     protected Vector3 finalPos;
 
-    private void Start() => GameManager.Instance.HeightChanged += OnHeightChange;
+    private void Start() => EventHandler.HeightChanged += OnHeightChange;
 
-    private void OnDestroy() => GameManager.Instance.HeightChanged -= OnHeightChange;
+    private void OnDestroy() => EventHandler.HeightChanged -= OnHeightChange;
 
     void OnHeightChange(Vector3 finalPos)
     {
         isMoveActive = true;
         this.finalPos = finalPos;
     }
-    protected virtual void Follow()
+    protected void Follow()
     {
         var cameraPos = transform.position;
         var targetPos = finalPos;

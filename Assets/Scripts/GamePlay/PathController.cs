@@ -9,8 +9,8 @@ public class PathController : MonoBehaviour
 {
     [SerializeField] List<Transform> pathImageList;
 
-    private void Start() => GameManager.Instance.HeightChanged += HeightChanged;
-    private void OnDestroy() => GameManager.Instance.HeightChanged -= HeightChanged;
+    private void Start() => EventHandler.HeightChanged += HeightChanged;
+    private void OnDestroy() => EventHandler.HeightChanged -= HeightChanged;
 
     
     private void HeightChanged(Vector3 finalPos)

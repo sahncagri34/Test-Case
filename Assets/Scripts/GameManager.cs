@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayFab;
+using PlayFab.ClientModels;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +19,11 @@ public class GameManager : MonoBehaviour
     [Header("REFERENCES")]
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SticksController sticksController;
+    [SerializeField] private UIController uiController;
 
-    public Action<Vector3> HeightChanged;
-    public Action<bool> GameStatusToggled;
+   
     private void Awake() => Initialize();
+
 
     private void Initialize()
     {
@@ -35,4 +38,42 @@ public class GameManager : MonoBehaviour
     {
         return sticksController.GetCurrentSpeed();
     }
+     public void PushPanel(LobbyPanels panelType)
+    {
+        uiController.PushPanel(panelType);
+    }
+
+    public void PopPanel()
+    {
+        uiController.PopPanel();
+    }
+    public void ShowMessage(string text)
+    {
+        var notificationPanel = (NotificationPanel) uiController.PushPanel(LobbyPanels.Notification);
+        notificationPanel.ShowMessage(text);
+    }
+
+    #region  Retrieve Data From Playfab
+    
+    public void PrepareDataFromPlayfab()
+    {
+        PlayFabManager.GetCatalogItemsPrices(OnDataReceivedSuccess,OnDataReceiveError);
+    }
+    private void OnDataReceivedSuccess(GetCatalogItemsResult result)
+    {
+        List<CatalogItem> catalogItems = result.Catalog;
+        foreach (var item in catalogItems)
+        {
+            var retrievedData = (RetrieveData) JsonUtility.FromJson(item.CustomData,typeof(RetrieveData));
+            DataPack.AddShopItem(retrievedData,item.DisplayName);
+        }
+
+        uiController.SpawnShopItems();
+    }
+    private void OnDataReceiveError(PlayFabError error)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
 }

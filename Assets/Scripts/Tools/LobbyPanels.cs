@@ -4,5 +4,6 @@ public enum LobbyPanels
     Menu,
     Shop,
     Game,
-    GameOver
+    GameOver,
+    Notification
 }

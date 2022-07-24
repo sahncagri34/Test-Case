@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
         PushPanel(LobbyPanels.Login);
     }
 
-    public void PushPanel(LobbyPanels panelType)
+    public BasePanel PushPanel(LobbyPanels panelType)
     {
         if(panelStack.Count > 0)
         {
@@ -30,22 +30,31 @@ public class UIController : MonoBehaviour
         panelToPush.Show();
 
         panelStack.Push(panelToPush);
+
+        return panelToPush;
     }
-    public void PopPanel(LobbyPanels panelType)
+    public void PopPanel()
     {
-        if(panelStack.Count <= 2) return;
+        if(panelStack.Count <= 1) return;
         
         BasePanel panelToPop = panelStack.Pop();
         BasePanel currentPanel = panelStack.Peek();
 
-        currentPanel.Hide();
+        panelToPop.Hide();
         currentPanel.Show();
     }
 
     
-    BasePanel GetPanel(LobbyPanels panelType)
+    public BasePanel GetPanel(LobbyPanels panelType)
     {
         return panels[(int)panelType];
+    }
+
+    public void SpawnShopItems()
+    {
+        var shopPanel = (ShopPanel) GetPanel(LobbyPanels.Shop);
+
+        shopPanel.SpawnItems();
     }
 }
 

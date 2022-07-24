@@ -4,6 +4,6 @@ public class GamePanel : BasePanel {
     public override void Show()
     {
         base.Show();
-        GameManager.Instance.GameStatusToggled.Invoke(true);
+        EventHandler.GameStatusToggled.Invoke(true);
     }
 }

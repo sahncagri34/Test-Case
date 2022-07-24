@@ -12,8 +12,8 @@ public class BallController : MonoBehaviour
     private int previousYTrigger;
     private int newYTrigger;
 
-    private void Start() => GameManager.Instance.GameStatusToggled += OnGameStatusToggled;
-    private void OnDestroy() => GameManager.Instance.GameStatusToggled -= OnGameStatusToggled;
+    private void Start() => EventHandler.GameStatusToggled += OnGameStatusToggled;
+    private void OnDestroy() => EventHandler.GameStatusToggled -= OnGameStatusToggled;
 
     private void Update()
     {
@@ -29,7 +29,7 @@ public class BallController : MonoBehaviour
         if (newYTrigger > previousYTrigger)
         {
             previousYTrigger = newYTrigger;
-            GameManager.Instance.HeightChanged.Invoke(transform.position);
+            EventHandler.HeightChanged.Invoke(transform.position);
         }
     }
 
