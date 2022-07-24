@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,17 @@ public class BallController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rigidbody;
     public bool isActive = false;
+    public bool isGameStarted = false;
 
     private int previousYTrigger;
     private int newYTrigger;
 
+    private void Start() => GameManager.Instance.GameStatusToggled += OnGameStatusToggled;
+    private void OnDestroy() => GameManager.Instance.GameStatusToggled -= OnGameStatusToggled;
+
     private void Update()
     {
+        if(!isGameStarted) return;
         if (!isActive) return;
 
         CalculateHeightChanges();
@@ -23,8 +29,14 @@ public class BallController : MonoBehaviour
         if (newYTrigger > previousYTrigger)
         {
             previousYTrigger = newYTrigger;
-            GameManager.Instance.OnHeightChanged.Invoke(transform.position);
+            GameManager.Instance.HeightChanged.Invoke(transform.position);
         }
+    }
+
+    private void OnGameStatusToggled(bool isActive)
+    {
+        rigidbody.simulated = isActive;
+        isGameStarted = isActive;
     }
 
 

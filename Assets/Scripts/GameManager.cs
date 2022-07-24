@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SticksController sticksController;
 
-    public Action<Vector3> OnHeightChanged;
-
+    public Action<Vector3> HeightChanged;
+    public Action<bool> GameStatusToggled;
     private void Awake() => Initialize();
 
     private void Initialize()

@@ -13,7 +13,7 @@ public class SticksController : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnHeightChanged += OnHeightChanged;
+        GameManager.Instance.HeightChanged += HeightChanged;
     }
 
 
@@ -79,7 +79,7 @@ public class SticksController : MonoBehaviour
     }
 
 
-    private void OnHeightChanged(Vector3 finalPos)
+    private void HeightChanged(Vector3 finalPos)
     {
         //Reset();
     }
