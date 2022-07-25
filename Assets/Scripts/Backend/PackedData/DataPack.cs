@@ -10,20 +10,22 @@ public static class DataPack
     public static UserData UserData
     {
         get => userData;
+        set => userData = value;
     }
     public static List<ShopItemData> AllShopItems
     {
         get => allShopItems;
     }
-    public static void AddShopItem(RetrieveData retrieveData,string itemIdentifier)
+    public static void AddShopItem(RetrieveData retrieveData, string itemIdentifier, string itemID)
     {
         var newShopItemData = new ShopItemData
         (
-        itemIdentifier
-        ,retrieveData.color
-        ,retrieveData.gearRatio
-        ,retrieveData.weight
-        ,retrieveData.price
+         itemID
+        ,itemIdentifier
+        , retrieveData.color
+        , retrieveData.gearRatio
+        , retrieveData.weight
+        , retrieveData.price
         );
 
         allShopItems.Add(newShopItemData);

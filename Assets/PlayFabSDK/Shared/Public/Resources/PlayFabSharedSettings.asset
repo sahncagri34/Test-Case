@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: A3907
   DeveloperSecretKey: KD6C3AONNYSRIKRU6TKK1HZPGIZ7ECAFT63JPI1Y4CGWPXRB4N
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   DisableDeviceInfo: 0
   DisableFocusTimeCollection: 0
   RequestTimeout: 2000

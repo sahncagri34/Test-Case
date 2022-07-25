@@ -8,16 +8,25 @@ public class SticksController : MonoBehaviour
     private RaycastHit2D hitInfo;
 
     private bool isPressing;
+    private bool isGameActive;
+
     private Vector3 previousPos;
     private Vector3 newPos;
 
-    private void Start() => EventHandler.HeightChanged += HeightChanged;
+    private void Start()
+    {
+        EventHandler.GameStatusToggled += OnGameStatusToggled;
+    }
 
-    private void OnDestroy() => EventHandler.HeightChanged -= HeightChanged;
-
+    private void OnDestroy()
+    {
+        EventHandler.GameStatusToggled -= OnGameStatusToggled;
+    }
 
     private void Update()
     {
+        if (!isGameActive) return;
+
         if(Input.GetMouseButtonDown(0))
         {
             Vector3 origin = GameManager.Instance.GetCameraScreenToWorldPoint(Input.mousePosition);
@@ -78,8 +87,9 @@ public class SticksController : MonoBehaviour
     }
 
 
-    private void HeightChanged(Vector3 finalPos)
+    private void OnGameStatusToggled(bool isGameActive)
     {
-        //Reset();
+        this.isGameActive = isGameActive;
     }
+
 }

@@ -11,10 +11,11 @@ public class LoginPanel : BasePanel
     void Login()
     {
         PlayFabManager.Login(OnLoginSuccess,OnLoginError);
+        GameManager.Instance.PushPanel(LobbyPanels.Loading);
     }
     private void OnLoginSuccess(LoginResult obj)
     {
-        GameManager.Instance.PushPanel(LobbyPanels.Menu);
+        GameManager.Instance.PrepareDataFromPlayfab();
     }
     private void OnLoginError(PlayFabError obj)
     {

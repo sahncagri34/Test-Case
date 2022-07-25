@@ -5,7 +5,6 @@ public class MenuPanel : BasePanel
     public override void Show()
     {
         base.Show();
-        GameManager.Instance.PrepareDataFromPlayfab();
     }
     public void OnShopButtonClicked()
     {

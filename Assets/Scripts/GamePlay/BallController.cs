@@ -2,18 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rigidbody;
+    [SerializeField] SpriteRenderer ballImage;
+
     public bool isActive = false;
     public bool isGameStarted = false;
 
     private int previousYTrigger;
     private int newYTrigger;
 
-    private void Start() => EventHandler.GameStatusToggled += OnGameStatusToggled;
-    private void OnDestroy() => EventHandler.GameStatusToggled -= OnGameStatusToggled;
+    
+
+    private void Start()
+    {
+        EventHandler.GameStatusToggled += OnGameStatusToggled;
+        EventHandler.ItemEquipped += OnItemEquipped;
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.GameStatusToggled -= OnGameStatusToggled;
+        EventHandler.ItemEquipped -= OnItemEquipped;
+    }
 
     private void Update()
     {
@@ -29,8 +43,10 @@ public class BallController : MonoBehaviour
         if (newYTrigger > previousYTrigger)
         {
             previousYTrigger = newYTrigger;
-            EventHandler.HeightChanged.Invoke(transform.position);
+            EventHandler.HeightChanged?.Invoke(transform.position);
         }
+
+        GameManager.Instance.UpdateMeter(transform.position.y);
     }
 
     private void OnGameStatusToggled(bool isActive)
@@ -39,6 +55,11 @@ public class BallController : MonoBehaviour
         isGameStarted = isActive;
     }
 
+
+    private void OnItemEquipped()
+    {
+        ballImage.color = DataPack.UserData.EquippedItem.Color.ToColor();
+    }
 
 
 
@@ -84,12 +105,22 @@ public class BallController : MonoBehaviour
             case Variables.DOWN_WALL:
                 OnTriggerDownWall(other);
                 break;
+            case Variables.COIN:
+                OnTriggerCoin(other);
+                break;
         }
     }
 
     void OnTriggerDownWall(Collider2D upWall)
     {
-        //Game OVER
+        GameManager.Instance.PushPanel(LobbyPanels.GameOver);
     }
+
+    void OnTriggerCoin(Collider2D coin)
+    {
+        coin.gameObject.SetActive(false);
+        DataPack.UserData.AddCoin();
+    }
+
     #endregion
 }
