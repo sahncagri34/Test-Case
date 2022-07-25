@@ -78,7 +78,10 @@ public class SticksController : MonoBehaviour
     {
         Vector3 mousePosition = GameManager.Instance.GetCameraScreenToWorldPoint(Input.mousePosition);
         Vector3 move = new Vector3(stick.position.x, mousePosition.y, stick.position.z);
-
+        
+        (float,float) positions = GameManager.Instance.GetMinMaxPositionsOfCamera();
+        move.y = Mathf.Clamp(move.y,positions.Item1,positions.Item2);
+        
         stick.position = move;
     }
     public float GetCurrentSpeed()

@@ -13,5 +13,8 @@ public class CameraController : BaseMoveableController
     {
        return mainCamera.ScreenToWorldPoint(point);
     }
-
+    public (float,float) GetMinMaxPositionsOfCamera()
+    {
+        return (transform.position.y-3,transform.position.y +3);
+    }
 }

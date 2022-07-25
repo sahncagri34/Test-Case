@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    
+    public (float,float) GetMinMaxPositionsOfCamera()
+    {
+        return cameraController.GetMinMaxPositionsOfCamera();
+    }
+
     public Vector3 GetCameraScreenToWorldPoint(Vector3 point)
     {
         return cameraController.GetCameraScreenToWorldPoint(point);
@@ -69,6 +75,9 @@ public class GameManager : MonoBehaviour
     {
         audioController.PlaySound(audioType);
     }
+
+
+
     #region  Retrieve Data From Playfab
 
     public void PrepareDataFromPlayfab()
