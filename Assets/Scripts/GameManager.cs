@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SticksController sticksController;
     [SerializeField] private UIController uiController;
+    [SerializeField] private AudioController audioController;
 
    
     private void Awake() => Initialize();
@@ -64,7 +65,10 @@ public class GameManager : MonoBehaviour
         var gamePanel = (GamePanel)GetPanel(LobbyPanels.Game);
         gamePanel.UpdateMeterText(meter);
     }
-
+    public void PlaySound(AudioTypes audioType)
+    {
+        audioController.PlaySound(audioType);
+    }
     #region  Retrieve Data From Playfab
 
     public void PrepareDataFromPlayfab()

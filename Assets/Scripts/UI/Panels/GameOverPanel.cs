@@ -21,7 +21,6 @@ public class GameOverPanel : BasePanel
 
     void SendData()
     {
-
         PlayFabManager.AddCurrency(DataPack.UserData.GatheredCoinAmountInGame * 10, OnAddCurrencySuccess, OnAddCurrencyError);
 
         if (DataPack.UserData.HighestMeterInGame < DataPack.UserData.CurrentMeterInGame)
@@ -41,7 +40,7 @@ public class GameOverPanel : BasePanel
 
     private void OnAddPointSuccess(UpdateUserDataResult obj)
     {
-
+        
     }
     private void OnAddPointError(PlayFabError obj)
     {

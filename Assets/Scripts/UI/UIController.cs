@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private List<BasePanel> panels; 
+    [SerializeField] List<BasePanel> panels; 
 
     private Stack<BasePanel> panelStack;
 
